@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuPrincipal));
             panelMenuLateral = new Panel();
+            btnCerrarSesion = new Button();
             panelSubMenuUsuarios = new Panel();
             btnAdministrarUsuario = new Button();
             btnRegistrarUsuario = new Button();
@@ -39,6 +40,7 @@
             btnKardex = new Button();
             btnReportes = new Button();
             panelSubMenuVentas = new Panel();
+            btnListaFacturas = new Button();
             btnRegistrarDevolucion = new Button();
             btnRegistrarVenta = new Button();
             btnVentas = new Button();
@@ -57,7 +59,6 @@
             btnRegistrarMarca = new Button();
             btnProductos = new Button();
             panelLogo = new Panel();
-            btnCerrarSesion = new Button();
             panelMenuLateral.SuspendLayout();
             panelSubMenuUsuarios.SuspendLayout();
             panelSubMenuReportes.SuspendLayout();
@@ -91,13 +92,30 @@
             panelMenuLateral.Size = new Size(200, 961);
             panelMenuLateral.TabIndex = 4;
             // 
+            // btnCerrarSesion
+            // 
+            btnCerrarSesion.BackColor = Color.FromArgb(238, 108, 77);
+            btnCerrarSesion.Dock = DockStyle.Top;
+            btnCerrarSesion.FlatAppearance.BorderSize = 0;
+            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
+            btnCerrarSesion.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCerrarSesion.Location = new Point(0, 822);
+            btnCerrarSesion.Name = "btnCerrarSesion";
+            btnCerrarSesion.Padding = new Padding(10, 0, 0, 0);
+            btnCerrarSesion.Size = new Size(200, 35);
+            btnCerrarSesion.TabIndex = 13;
+            btnCerrarSesion.Text = "Cerrar Sesion";
+            btnCerrarSesion.TextAlign = ContentAlignment.MiddleLeft;
+            btnCerrarSesion.UseVisualStyleBackColor = false;
+            btnCerrarSesion.Click += btnCerrarSesion_Click;
+            // 
             // panelSubMenuUsuarios
             // 
             panelSubMenuUsuarios.BackColor = Color.FromArgb(152, 193, 217);
             panelSubMenuUsuarios.Controls.Add(btnAdministrarUsuario);
             panelSubMenuUsuarios.Controls.Add(btnRegistrarUsuario);
             panelSubMenuUsuarios.Dock = DockStyle.Top;
-            panelSubMenuUsuarios.Location = new Point(0, 730);
+            panelSubMenuUsuarios.Location = new Point(0, 753);
             panelSubMenuUsuarios.Name = "panelSubMenuUsuarios";
             panelSubMenuUsuarios.Size = new Size(200, 69);
             panelSubMenuUsuarios.TabIndex = 12;
@@ -142,7 +160,7 @@
             btnUsuarios.FlatAppearance.BorderSize = 0;
             btnUsuarios.FlatStyle = FlatStyle.Flat;
             btnUsuarios.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnUsuarios.Location = new Point(0, 695);
+            btnUsuarios.Location = new Point(0, 718);
             btnUsuarios.Name = "btnUsuarios";
             btnUsuarios.Padding = new Padding(10, 0, 0, 0);
             btnUsuarios.Size = new Size(200, 35);
@@ -158,7 +176,7 @@
             panelSubMenuReportes.Controls.Add(button2);
             panelSubMenuReportes.Controls.Add(btnKardex);
             panelSubMenuReportes.Dock = DockStyle.Top;
-            panelSubMenuReportes.Location = new Point(0, 606);
+            panelSubMenuReportes.Location = new Point(0, 629);
             panelSubMenuReportes.Name = "panelSubMenuReportes";
             panelSubMenuReportes.Size = new Size(200, 89);
             panelSubMenuReportes.TabIndex = 10;
@@ -202,7 +220,7 @@
             btnReportes.FlatAppearance.BorderSize = 0;
             btnReportes.FlatStyle = FlatStyle.Flat;
             btnReportes.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnReportes.Location = new Point(0, 571);
+            btnReportes.Location = new Point(0, 594);
             btnReportes.Name = "btnReportes";
             btnReportes.Padding = new Padding(10, 0, 0, 0);
             btnReportes.Size = new Size(200, 35);
@@ -215,13 +233,31 @@
             // panelSubMenuVentas
             // 
             panelSubMenuVentas.BackColor = Color.FromArgb(152, 193, 217);
+            panelSubMenuVentas.Controls.Add(btnListaFacturas);
             panelSubMenuVentas.Controls.Add(btnRegistrarDevolucion);
             panelSubMenuVentas.Controls.Add(btnRegistrarVenta);
             panelSubMenuVentas.Dock = DockStyle.Top;
             panelSubMenuVentas.Location = new Point(0, 504);
             panelSubMenuVentas.Name = "panelSubMenuVentas";
-            panelSubMenuVentas.Size = new Size(200, 67);
+            panelSubMenuVentas.Size = new Size(200, 90);
             panelSubMenuVentas.TabIndex = 8;
+            // 
+            // btnListaFacturas
+            // 
+            btnListaFacturas.Dock = DockStyle.Top;
+            btnListaFacturas.FlatAppearance.BorderSize = 0;
+            btnListaFacturas.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
+            btnListaFacturas.FlatStyle = FlatStyle.Flat;
+            btnListaFacturas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnListaFacturas.Location = new Point(0, 56);
+            btnListaFacturas.Name = "btnListaFacturas";
+            btnListaFacturas.Padding = new Padding(25, 0, 0, 0);
+            btnListaFacturas.Size = new Size(200, 28);
+            btnListaFacturas.TabIndex = 2;
+            btnListaFacturas.Text = "Lista de Facturas";
+            btnListaFacturas.TextAlign = ContentAlignment.MiddleLeft;
+            btnListaFacturas.UseVisualStyleBackColor = true;
+            btnListaFacturas.Click += btnListaFacturas_Click;
             // 
             // btnRegistrarDevolucion
             // 
@@ -502,23 +538,6 @@
             panelLogo.Size = new Size(200, 100);
             panelLogo.TabIndex = 0;
             // 
-            // btnCerrarSesion
-            // 
-            btnCerrarSesion.BackColor = Color.FromArgb(238, 108, 77);
-            btnCerrarSesion.Dock = DockStyle.Top;
-            btnCerrarSesion.FlatAppearance.BorderSize = 0;
-            btnCerrarSesion.FlatStyle = FlatStyle.Flat;
-            btnCerrarSesion.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCerrarSesion.Location = new Point(0, 799);
-            btnCerrarSesion.Name = "btnCerrarSesion";
-            btnCerrarSesion.Padding = new Padding(10, 0, 0, 0);
-            btnCerrarSesion.Size = new Size(200, 35);
-            btnCerrarSesion.TabIndex = 13;
-            btnCerrarSesion.Text = "Cerrar Sesion";
-            btnCerrarSesion.TextAlign = ContentAlignment.MiddleLeft;
-            btnCerrarSesion.UseVisualStyleBackColor = false;
-            btnCerrarSesion.Click += btnCerrarSesion_Click;
-            // 
             // MenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -574,5 +593,6 @@
         private Button btnUsuarios;
         private Button btnInventario;
         private Button btnCerrarSesion;
+        private Button btnListaFacturas;
     }
 }

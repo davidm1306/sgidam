@@ -22,7 +22,6 @@ namespace sgidam
             ConfigurarColumnasGrid();
         }
 
-       
         private void CargarProductos()
         {
             DataTable dt = VentaHelper.ObtenerProductos();
@@ -32,14 +31,11 @@ namespace sgidam
             cmbProducto.SelectedIndex = -1;
         }
 
-        
         private void ConfigurarColumnasGrid()
         {
-            
             dgvKardex.AutoGenerateColumns = false;
             dgvKardex.Columns.Clear();
 
-            
             dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "fecha_movimiento",
@@ -49,7 +45,6 @@ namespace sgidam
                 Width = 150
             });
 
-            
             dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "tipo",
@@ -58,7 +53,6 @@ namespace sgidam
                 Width = 100
             });
 
-            
             dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "cantidad",
@@ -67,7 +61,6 @@ namespace sgidam
                 Width = 80
             });
 
-            
             dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "costo_unitario",
@@ -77,12 +70,20 @@ namespace sgidam
                 Width = 100
             });
 
-
             dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
             {
                 Name = "saldo_acumulado",
                 HeaderText = "Saldo (unidades)",
                 DataPropertyName = "saldo_acumulado",
+                Width = 100
+            });
+
+           
+            dgvKardex.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                Name = "codigo_lote",
+                HeaderText = "Lote",
+                DataPropertyName = "codigo_lote",
                 Width = 100
             });
         }
@@ -98,10 +99,10 @@ namespace sgidam
                 }
 
                 int idProducto = (int)cmbProducto.SelectedValue;
-                DateTime fechaDesde = dtpDesde.Value.Date; // Solo fecha, sin hora
-                DateTime fechaHasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1); // Hasta el final del día
+                DateTime fechaDesde = dtpDesde.Value.Date;
+                DateTime fechaHasta = dtpHasta.Value.Date.AddDays(1).AddSeconds(-1);
 
-                // Consulta TODOS los movimientos del producto (sin filtro de fecha)
+                
                 string query = @"
                     SELECT 
                         k.fecha_movimiento,
@@ -109,10 +110,15 @@ namespace sgidam
                         k.cantidad,
                         k.costo_unitario,
                         CASE 
-                            WHEN tm.nombre_movimiento IN ('COMPRA', 'AJUSTE SUMA') THEN k.cantidad
+                            WHEN tm.nombre_movimiento IN ('COMPRA', 'AJUSTE SUMA', 'DEVOLUCION') THEN k.cantidad
                             WHEN tm.nombre_movimiento IN ('VENTA', 'AJUSTE RESTA') THEN -k.cantidad
                             ELSE 0
-                        END AS cantidad_efectiva
+                        END AS cantidad_efectiva,
+                        CASE 
+                            WHEN tm.nombre_movimiento = 'COMPRA' THEN (SELECT codigo_lote FROM lotes WHERE id_detalle_compra = k.id_detalle_compra LIMIT 1)
+                            WHEN tm.nombre_movimiento = 'DEVOLUCION' THEN (SELECT l.codigo_lote FROM devoluciones_detalle dd JOIN lotes l ON dd.id_lote_creado = l.id_lote WHERE dd.id_devolucion = k.id_devolucion LIMIT 1)
+                            ELSE NULL
+                        END AS codigo_lote
                     FROM kardex k
                     INNER JOIN tipos_movimiento tm ON k.tipo_movimiento = tm.id_tipo
                     WHERE k.id_producto = @idProducto
@@ -120,28 +126,29 @@ namespace sgidam
                 ";
 
                 var parametros = Utilbdd.CrearParametros(new Dictionary<string, object>
-        {
-            { "idProducto", idProducto }
-        });
+                {
+                    { "idProducto", idProducto }
+                });
 
                 DataTable dt = Utilbdd.EjecutarConsulta(query, parametros);
 
-                // Crear una nueva tabla con los movimientos filtrados por fecha + saldo acumulado
+              
                 DataTable dtFiltrado = new DataTable();
                 dtFiltrado.Columns.Add("fecha_movimiento", typeof(DateTime));
                 dtFiltrado.Columns.Add("tipo", typeof(string));
                 dtFiltrado.Columns.Add("cantidad", typeof(int));
                 dtFiltrado.Columns.Add("costo_unitario", typeof(decimal));
                 dtFiltrado.Columns.Add("saldo_acumulado", typeof(decimal));
+                dtFiltrado.Columns.Add("codigo_lote", typeof(string));
 
                 decimal saldo = 0;
                 foreach (DataRow row in dt.Rows)
                 {
                     DateTime fechaMov = Convert.ToDateTime(row["fecha_movimiento"]);
                     decimal cantidadEfectiva = Convert.ToDecimal(row["cantidad_efectiva"]);
-                    saldo += cantidadEfectiva; // Suma al saldo total (todos los movimientos)
+                    saldo += cantidadEfectiva;
 
-                    // Si el movimiento está en el rango de fechas, lo mostramos
+                    
                     if (fechaMov >= fechaDesde && fechaMov <= fechaHasta)
                     {
                         DataRow newRow = dtFiltrado.NewRow();
@@ -149,15 +156,14 @@ namespace sgidam
                         newRow["tipo"] = row["tipo"];
                         newRow["cantidad"] = row["cantidad"];
                         newRow["costo_unitario"] = row["costo_unitario"];
-                        newRow["saldo_acumulado"] = saldo; // Saldo acumulado real
+                        newRow["saldo_acumulado"] = saldo;
+                        newRow["codigo_lote"] = row["codigo_lote"] != DBNull.Value ? row["codigo_lote"].ToString() : "";
                         dtFiltrado.Rows.Add(newRow);
                     }
                 }
 
-                // Asignar al DataGridView
                 dgvKardex.DataSource = dtFiltrado;
 
-                // Mostrar resumen
                 MostrarResumenProducto(idProducto);
             }
             catch (Exception ex)
@@ -169,7 +175,7 @@ namespace sgidam
         private void MostrarResumenProducto(int idProducto)
         {
             string query = "SELECT stock, precio_compra FROM productos WHERE id_producto = @id";
-            var param = Utilbdd.CrearParametros(new System.Collections.Generic.Dictionary<string, object> { { "id", idProducto } });
+            var param = Utilbdd.CrearParametros(new Dictionary<string, object> { { "id", idProducto } });
             DataTable dt = Utilbdd.EjecutarConsulta(query, param);
             if (dt.Rows.Count > 0)
             {

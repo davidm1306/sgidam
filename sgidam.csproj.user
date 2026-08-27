@@ -7,7 +7,13 @@
     <Compile Update="Compras.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="DetalleFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="DetalleProducto.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Devoluciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="EditarProveedor.cs">
@@ -23,6 +29,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="Kardex.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ListaFacturas.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="ListaProveedores.cs">

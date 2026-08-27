@@ -24,10 +24,12 @@ namespace sgidam.Models
         public decimal PrecioVenta { get; set; }
         public int Stock { get; set; }
         public int StockMinimo { get; set; }
-        public string ImagenProducto { get; set; }  
+        public string ImagenProducto { get; set; }
         public int? Estatus { get; set; }
+        public decimal? CostoHistoricoMaximo { get; set; }
+        public DateTime? FechaActualizacionCosto { get; set; }
 
-        
+
         public static DataTable ObtenerMarcas()
         {
             string query = "SELECT id_marca, nombre_marca FROM marcas ORDER BY nombre_marca";
@@ -82,7 +84,9 @@ namespace sgidam.Models
                     stock,
                     stock_minimo,
                     imagen_producto,
-                    estatus
+                    estatus,
+                    costo_historico_maximo,
+                    fecha_actualizacion_costo
                 ) VALUES (
                     @nombre,
                     @codigo,
@@ -94,7 +98,9 @@ namespace sgidam.Models
                     @stock,
                     @stockMinimo,
                     @imagen,
-                    @estatus
+                    @estatus,
+                    @precioCompra,
+                    NOW()
                 )
             ";
 
@@ -127,6 +133,28 @@ namespace sgidam.Models
                 }
                 throw; 
             }
+        }
+
+        public static bool ActualizarCostoMaximo(int idProducto, decimal nuevoCostoMaximo, decimal nuevoPorcentajeUtilidad)
+        {
+            decimal nuevoPrecioVenta = nuevoCostoMaximo * (1 + nuevoPorcentajeUtilidad / 100);
+
+            string query = @"
+                UPDATE productos 
+                SET costo_historico_maximo = @nuevoCosto,
+                    porcentaje_utilidad = @nuevaUtilidad,
+                    precio_venta = @nuevoPrecio,
+                    fecha_actualizacion_costo = NOW()
+                WHERE id_producto = @id
+            ";
+            var parametros = Utilbdd.CrearParametros(new Dictionary<string, object>
+            {
+                { "nuevoCosto", nuevoCostoMaximo },
+                { "nuevaUtilidad", nuevoPorcentajeUtilidad },
+                { "nuevoPrecio", nuevoPrecioVenta },
+                { "id", idProducto }
+            });
+            return Utilbdd.EjecutarComando(query, parametros) > 0;
         }
     }
 }

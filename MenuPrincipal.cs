@@ -15,7 +15,7 @@ namespace sgidam
     {
         private System.Windows.Forms.Timer _timerInactividad;
         // 5 minutos en milisegundos (300,000 ms)
-        private const int TIEMPO_EXPIRACION_MS = 5 * 60 * 1000;
+        private const int TIEMPO_EXPIRACION_MS = 30 * 60 * 1000;
 
 
 
@@ -397,7 +397,19 @@ namespace sgidam
 
         private void btnRegistrarDevolucion_Click(object sender, EventArgs e)
         {
+            using (var frm = new Devoluciones())
+            {
+                frm.ShowDialog();
+            }
+        }
+        
 
+        private void btnListaFacturas_Click(object sender, EventArgs e)
+        {
+            using (var frm = new ListaFacturas())
+            {
+                frm.ShowDialog();
+            }
         }
 
         private void btnReportes_Click(object sender, EventArgs e)
@@ -440,15 +452,19 @@ namespace sgidam
             }
         }
 
-        private void proveedoresToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void btnCerrarSesion_Click(object sender, EventArgs e)
         {
             Global.UsuarioSesion = null;
             this.Close();
+        }
+
+        private void btnDevoluciones_Click(object sender, EventArgs e)
+        {
+            using (var frm = new Devoluciones())
+            {
+                frm.ShowDialog();
+            }
         }
     }
 }

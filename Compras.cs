@@ -23,6 +23,8 @@ namespace sgidam
             CargarCombos();
             ConfigurarEventos();
             CalcularTotal();
+
+            txtCostoUnitario.KeyPress += SoloNumerosYDecimales;
         }
 
 
@@ -63,6 +65,14 @@ namespace sgidam
                     col.ReadOnly = true;
             }
 
+            DataGridViewButtonColumn btnEditar = new DataGridViewButtonColumn();
+            btnEditar.Name = "Editar";
+            btnEditar.HeaderText = "Editar";
+            btnEditar.Text = "✏️";
+            btnEditar.UseColumnTextForButtonValue = true;
+            btnEditar.Width = 60;
+            dgvDetalles.Columns.Add(btnEditar);
+
         }
 
 
@@ -74,13 +84,6 @@ namespace sgidam
             cmbProveedor.DisplayMember = "nombre_proveedor";
             cmbProveedor.ValueMember = "id_proveedor";
             cmbProveedor.SelectedIndex = -1;
-
-
-            DataTable dtEstatus = CompraHelper.ObtenerEstatus();
-            cmbEstatus.DataSource = dtEstatus;
-            cmbEstatus.DisplayMember = "tipo_status";
-            cmbEstatus.ValueMember = "id_estatus";
-            cmbEstatus.SelectedIndex = 0;
 
         }
 
@@ -107,7 +110,7 @@ namespace sgidam
         {
             if (cmbProveedor.SelectedIndex == -1)
             {
-               
+
                 cmbProductoAgregar.DataSource = null;
                 txtCostoUnitario.Text = "";
                 return;
@@ -120,37 +123,81 @@ namespace sgidam
             cmbProductoAgregar.DisplayMember = "nombre_producto";
             cmbProductoAgregar.ValueMember = "id_producto";
             cmbProductoAgregar.SelectedIndex = -1;
-            txtCostoUnitario.Text = ""; 
+            txtCostoUnitario.Text = "";
         }
 
         private void cmbProductoAgregar_SelectedIndexChanged(object sender, EventArgs e)
         {
-            
             if (cmbProveedor.SelectedIndex == -1 || cmbProductoAgregar.SelectedIndex == -1)
             {
                 txtCostoUnitario.Text = "";
+                lblStockActual.Text = ""; 
                 return;
             }
 
-            
             DataTable dt = cmbProductoAgregar.DataSource as DataTable;
             if (dt == null)
             {
                 txtCostoUnitario.Text = "";
+                lblStockActual.Text = "";
                 return;
             }
 
-            
             DataRowView rowView = cmbProductoAgregar.SelectedItem as DataRowView;
             if (rowView == null)
             {
                 txtCostoUnitario.Text = "";
+                lblStockActual.Text = "";
                 return;
             }
 
-            
             decimal precio = Convert.ToDecimal(rowView["precio_proveedor"]);
             txtCostoUnitario.Text = precio.ToString("F2");
+
+            if (cmbProductoAgregar.SelectedIndex != -1)
+            {
+                int idProducto = (int)cmbProductoAgregar.SelectedValue;
+                string queryStock = "SELECT stock FROM productos WHERE id_producto = @id";
+                var paramStock = Utilbdd.CrearParametros(new Dictionary<string, object> { { "id", idProducto } });
+                DataTable dtStock = Utilbdd.EjecutarConsulta(queryStock, paramStock);
+                if (dtStock.Rows.Count > 0)
+                {
+                    int stock = Convert.ToInt32(dtStock.Rows[0]["stock"]);
+                    lblStockActual.Text = $"Stock actual: {stock}";
+                }
+                else
+                {
+                    lblStockActual.Text = "Stock actual: 0";
+                }
+
+                
+                string queryMax = "SELECT costo_historico_maximo FROM productos WHERE id_producto = @id";
+                var paramMax = Utilbdd.CrearParametros(new Dictionary<string, object> { { "id", idProducto } });
+                DataTable dtMax = Utilbdd.EjecutarConsulta(queryMax, paramMax);
+                decimal costoMaximo = 0;
+                if (dtMax.Rows.Count > 0 && dtMax.Rows[0]["costo_historico_maximo"] != DBNull.Value)
+                {
+                    costoMaximo = Convert.ToDecimal(dtMax.Rows[0]["costo_historico_maximo"]);
+                    txtCostoUnitario.Text = costoMaximo.ToString("F2");
+                }
+                else
+                {
+                    txtCostoUnitario.Text = "";
+                }
+            }
+
+            if (cmbProductoAgregar.SelectedIndex != -1)
+            {
+                int idProducto = (int)cmbProductoAgregar.SelectedValue;
+                string queryMax = "SELECT costo_historico_maximo FROM productos WHERE id_producto = @id";
+                var paramMax = Utilbdd.CrearParametros(new Dictionary<string, object> { { "id", idProducto } });
+                DataTable dtMax = Utilbdd.EjecutarConsulta(queryMax, paramMax);
+                if (dtMax.Rows.Count > 0 && dtMax.Rows[0]["costo_historico_maximo"] != DBNull.Value)
+                {
+                    decimal costoMax = Convert.ToDecimal(dtMax.Rows[0]["costo_historico_maximo"]);                    
+                }
+               
+            }
         }
 
         private void SoloNumerosYDecimales(object sender, KeyPressEventArgs e)
@@ -168,6 +215,8 @@ namespace sgidam
 
         private void btnAgregar_Click(object sender, EventArgs e)
         {
+
+
 
             if (cmbProductoAgregar.SelectedIndex == -1)
             {
@@ -197,18 +246,54 @@ namespace sgidam
                 return;
             }
 
+            string codigoLote = txtCodigoLote.Text.Trim();
+
+            if (string.IsNullOrEmpty(codigoLote))
+            {
+                codigoLote = $"LOTE-{idProducto}-{DateTime.Now:yyyyMMddHHmmss}";
+                txtCodigoLote.Text = codigoLote;
+            }
+
+
+
+            if (!string.IsNullOrEmpty(codigoLote))
+            {
+                bool loteDuplicado = _detallesTable.AsEnumerable()
+                    .Any(r => r.Field<int>("id_producto") == idProducto &&
+                              r.Field<string>("codigo_lote") == codigoLote);
+                if (loteDuplicado)
+                {
+                    MessageBox.Show($"Ya existe el lote '{codigoLote}' para este producto en la compra actual.",
+                                    "Lote duplicado", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtCodigoLote.Focus();
+                    txtCodigoLote.SelectAll();
+                    return;
+                }
+            }
+
 
             DataRow newRow = _detallesTable.NewRow();
             newRow["id_producto"] = idProducto;
             newRow["nombre_producto"] = nombreProducto;
             newRow["cantidad"] = cantidad;
             newRow["costo_unitario"] = costoUnitario;
+
+            if (!_detallesTable.Columns.Contains("codigo_lote"))
+            {
+                _detallesTable.Columns.Add("codigo_lote", typeof(string));
+                // La ocultamos en el DataGridView
+                if (dgvDetalles.Columns["codigo_lote"] != null)
+                    dgvDetalles.Columns["codigo_lote"].Visible = false;
+            }
+            newRow["codigo_lote"] = codigoLote;
+
             _detallesTable.Rows.Add(newRow);
 
 
             cmbProductoAgregar.SelectedIndex = -1;
             nudCantidad.Value = 1;
             txtCostoUnitario.Clear();
+            txtCodigoLote.Clear();
         }
 
         private void DgvDetalles_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -232,7 +317,7 @@ namespace sgidam
 
         private bool ValidarCampos()
         {
-            // Proveedor
+
             if (cmbProveedor.SelectedIndex == -1)
             {
                 MessageBox.Show("Selecciona un proveedor.", "Campo requerido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -240,7 +325,7 @@ namespace sgidam
                 return false;
             }
 
-            // Detalles
+
             if (_detallesTable.Rows.Count == 0)
             {
                 MessageBox.Show("Agrega al menos un producto a la compra.", "Sin detalles", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -267,6 +352,11 @@ namespace sgidam
             if (!ValidarCampos())
                 return;
 
+            DialogResult resultado = MessageBox.Show("¿Estás seguro de guardar esta compra?", "Confirmar guardado", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (resultado == DialogResult.No)
+                return;
+
             try
             {
 
@@ -275,18 +365,24 @@ namespace sgidam
                     IdProveedor = cmbProveedor.SelectedValue.ToString(),
                     FechaCompra = dtpFecha.Value,
                     TotalCompra = decimal.Parse(txtTotal.Text),
-                    Estatus = (int)cmbEstatus.SelectedValue,
+                    Estatus = 1,
                     IdUsuario = Global.UsuarioSesion.id_usuario
                 };
 
 
                 foreach (DataRow row in _detallesTable.Rows)
                 {
+
+                    string codigoLote = row.Table.Columns.Contains("codigo_lote")
+                        ? row["codigo_lote"]?.ToString()
+                        : null;
+
                     nuevaCompra.Detalles.Add(new DetalleCompra
                     {
-                        IdProducto = (int)row["id_Producto"],
+                        IdProducto = (int)row["id_producto"],
                         Cantidad = (int)row["cantidad"],
-                        CostoUnitario = (decimal)row["costo_unitario"]
+                        CostoUnitario = (decimal)row["costo_unitario"],
+                        CodigoLote = codigoLote 
                     });
                 }
 
@@ -329,6 +425,69 @@ namespace sgidam
             BotonesPersonalizados.EstiloBotonPildora(btnCancelar, "#bc4749", 2, "#bc4749");
             BotonesPersonalizados.EstiloBotonPildora(btnEliminar, "#bc4749", 2, "#bc4749");
             BotonesPersonalizados.EstiloBotonPildora(btnGuardar, "#98c1d9", 2, "#98c1d9");
+            BotonesPersonalizados.EstiloBotonPildora(btnLimpiar, "#f4a261", 2, "#f4a261");
+            BotonesPersonalizados.EstiloBotonPildora(btnVerLotes, "#98c1d9", 2, "#98c1d9");
+
+            dtpFecha.MinDate = new DateTime(2000, 1, 1);
+            dtpFecha.MaxDate = DateTime.Now.Date;
+            dtpFecha.Value = DateTime.Now.Date;
+        }
+
+        private void btnLimpiar_Click(object sender, EventArgs e)
+        {
+
+            _detallesTable.Clear();
+
+
+            cmbProveedor.SelectedIndex = -1;
+            cmbProductoAgregar.DataSource = null;
+
+
+            txtCostoUnitario.Clear();
+            txtCodigoLote.Clear();
+            nudCantidad.Value = 1;
+            txtTotal.Text = "0.00";
+
+
+            dtpFecha.Value = DateTime.Now.Date;
+
+
+            cmbProveedor.Focus();
+        }
+
+        private void btnVerLotes_Click(object sender, EventArgs e)
+        {
+            if (cmbProductoAgregar.SelectedIndex == -1)
+            {
+                MessageBox.Show("Selecciona un producto para ver sus lotes.", "Sin producto",
+                                MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            int idProducto = (int)cmbProductoAgregar.SelectedValue;
+            string query = @"
+                SELECT codigo_lote, cantidad_disponible, costo_unitario, fecha_entrada
+                FROM lotes
+                WHERE id_producto = @idProducto AND cantidad_disponible > 0
+                ORDER BY fecha_entrada ASC
+            ";
+            var param = Utilbdd.CrearParametros(new Dictionary<string, object> { { "idProducto", idProducto } });
+            DataTable dt = Utilbdd.EjecutarConsulta(query, param);
+
+            if (dt.Rows.Count == 0)
+            {
+                MessageBox.Show("No hay lotes disponibles para este producto.", "Sin lotes",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+
+            string mensaje = "Lotes disponibles:\n\n";
+            foreach (DataRow row in dt.Rows)
+            {
+                mensaje += $"Lote: {row["codigo_lote"]} | Stock: {row["cantidad_disponible"]} | Costo: {row["costo_unitario"]:C2}\n";
+            }
+            MessageBox.Show(mensaje, "Lotes del producto", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

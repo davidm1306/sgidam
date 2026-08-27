@@ -40,12 +40,6 @@ namespace sgidam
             cmbCategoria.ValueMember = "id_categoria";
             cmbCategoria.SelectedIndex = -1;
 
-
-            DataTable dtEstatus = Producto.ObtenerEstatus();
-            cmbEstatus.DataSource = dtEstatus;
-            cmbEstatus.DisplayMember = "tipo_status";
-            cmbEstatus.ValueMember = "id_estatus";
-            cmbEstatus.SelectedIndex = 0;
         }
         private void SoloNumerosYDecimales(object sender, KeyPressEventArgs e)
         {
@@ -156,6 +150,14 @@ namespace sgidam
             BotonesPersonalizados.EstiloBotonPildora(btnCancelar, "#bc4749", 2, "#bc4749");
             BotonesPersonalizados.EstiloBotonPildora(btnCargarImagen, "#98c1d9", 2, "#98c1d9");
             BotonesPersonalizados.EstiloBotonPildora(btnGuardar, "#98c1d9", 2, "#98c1d9");
+
+            string rol = Global.UsuarioSesion.rol;
+
+
+            if (rol == "Vendedor")
+            {
+                nudPorcentajeUtilidad.Enabled = false;
+            }
         }
 
         private void btnCancelar_Click(object sender, EventArgs e)
@@ -192,7 +194,7 @@ namespace sgidam
                     PorcentajeUtilidad = nudPorcentajeUtilidad.Value,
                     Stock = (int)nudStock.Value,
                     StockMinimo = (int)nudStockMinimo.Value,
-                    Estatus = (int)cmbEstatus.SelectedValue
+                    Estatus = 1
                     
                 };
 

@@ -126,7 +126,7 @@
             txtNombreEmpleado.Location = new Point(175, 15);
             txtNombreEmpleado.MaxLength = 45;
             txtNombreEmpleado.Name = "txtNombreEmpleado";
-            txtNombreEmpleado.Size = new Size(100, 23);
+            txtNombreEmpleado.Size = new Size(121, 23);
             txtNombreEmpleado.TabIndex = 1;
             // 
             // txtApellido
@@ -134,7 +134,7 @@
             txtApellido.Location = new Point(175, 47);
             txtApellido.MaxLength = 100;
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(100, 23);
+            txtApellido.Size = new Size(121, 23);
             txtApellido.TabIndex = 2;
             // 
             // txtCedula
@@ -142,14 +142,14 @@
             txtCedula.Location = new Point(175, 80);
             txtCedula.MaxLength = 20;
             txtCedula.Name = "txtCedula";
-            txtCedula.Size = new Size(100, 23);
+            txtCedula.Size = new Size(121, 23);
             txtCedula.TabIndex = 3;
             // 
             // txtNombreUsuario
             // 
             txtNombreUsuario.Location = new Point(175, 113);
             txtNombreUsuario.Name = "txtNombreUsuario";
-            txtNombreUsuario.Size = new Size(100, 23);
+            txtNombreUsuario.Size = new Size(121, 23);
             txtNombreUsuario.TabIndex = 4;
             // 
             // txtPassword
@@ -158,7 +158,7 @@
             txtPassword.MaxLength = 50;
             txtPassword.Name = "txtPassword";
             txtPassword.PasswordChar = '*';
-            txtPassword.Size = new Size(100, 23);
+            txtPassword.Size = new Size(121, 23);
             txtPassword.TabIndex = 5;
             // 
             // txtConfirmPassword
@@ -166,7 +166,7 @@
             txtConfirmPassword.Location = new Point(175, 181);
             txtConfirmPassword.Name = "txtConfirmPassword";
             txtConfirmPassword.PasswordChar = '*';
-            txtConfirmPassword.Size = new Size(100, 23);
+            txtConfirmPassword.Size = new Size(121, 23);
             txtConfirmPassword.TabIndex = 6;
             txtConfirmPassword.TextChanged += txtConfirmPassword_TextChanged;
             // 

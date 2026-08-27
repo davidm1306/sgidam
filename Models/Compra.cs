@@ -26,6 +26,7 @@ namespace sgidam.Models
         public int IdProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal CostoUnitario { get; set; }
+        public string CodigoLote { get; set; }  
         public decimal Subtotal => Cantidad * CostoUnitario;
     }
 

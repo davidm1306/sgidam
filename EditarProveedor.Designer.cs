@@ -78,23 +78,26 @@
             txtDireccion.Location = new Point(186, 120);
             txtDireccion.MaxLength = 255;
             txtDireccion.Name = "txtDireccion";
-            txtDireccion.Size = new Size(277, 23);
+            txtDireccion.Size = new Size(182, 23);
             txtDireccion.TabIndex = 18;
+            txtDireccion.Leave += txtDireccion_Leave;
             // 
             // txtTelefono
             // 
             txtTelefono.Location = new Point(186, 88);
             txtTelefono.MaxLength = 11;
             txtTelefono.Name = "txtTelefono";
-            txtTelefono.Size = new Size(100, 23);
+            txtTelefono.Size = new Size(182, 23);
             txtTelefono.TabIndex = 17;
+            txtTelefono.KeyPress += SoloNumeros;
+            txtTelefono.Leave += txtTelefono_Leave;
             // 
             // txtCorreo
             // 
             txtCorreo.Location = new Point(186, 59);
             txtCorreo.MaxLength = 45;
             txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(100, 23);
+            txtCorreo.Size = new Size(182, 23);
             txtCorreo.TabIndex = 15;
             // 
             // txtNombre
@@ -104,6 +107,7 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(182, 23);
             txtNombre.TabIndex = 16;
+            txtNombre.Leave += txtNombre_Leave;
             // 
             // label6
             // 
@@ -155,7 +159,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
-            ClientSize = new Size(495, 284);
+            ClientSize = new Size(429, 284);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
             Controls.Add(cmbEstatus);

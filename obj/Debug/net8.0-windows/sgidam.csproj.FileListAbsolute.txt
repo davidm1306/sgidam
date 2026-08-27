@@ -55,3 +55,7 @@ C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.InputDialog.r
 C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.EditarProveedor.resources
 C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.MostrarProveedores.resources
 C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.DetalleProducto.resources
+C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.sourcelink.json
+C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.ListaFacturas.resources
+C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.DetalleFactura.resources
+C:\Users\david\source\repos\sgidam\obj\Debug\net8.0-windows\sgidam.Devoluciones.resources

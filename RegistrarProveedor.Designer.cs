@@ -133,7 +133,7 @@
             txtNombre.Location = new Point(162, 43);
             txtNombre.MaxLength = 100;
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(182, 23);
+            txtNombre.Size = new Size(277, 23);
             txtNombre.TabIndex = 3;
             // 
             // txtCorreo
@@ -141,7 +141,7 @@
             txtCorreo.Location = new Point(162, 72);
             txtCorreo.MaxLength = 45;
             txtCorreo.Name = "txtCorreo";
-            txtCorreo.Size = new Size(100, 23);
+            txtCorreo.Size = new Size(277, 23);
             txtCorreo.TabIndex = 1;
             // 
             // txtTelefono

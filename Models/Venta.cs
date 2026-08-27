@@ -15,6 +15,12 @@ namespace sgidam.Models
         public int? Estatus { get; set; }
         public int IdUsuario { get; set; }
         public List<DetalleVenta> Detalles { get; set; } = new List<DetalleVenta>();
+        public string IdCliente { get; set; }       
+        public int NumeroFactura { get; set; }
+        public decimal SubTotal { get; set; }
+        public decimal? Impuestos { get; set; }     
+        public string NumeroControl { get; set; }
+
     }
 
     public class DetalleVenta

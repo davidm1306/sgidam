@@ -47,7 +47,7 @@
             // cmbProducto
             // 
             cmbProducto.FormattingEnabled = true;
-            cmbProducto.Location = new Point(145, 17);
+            cmbProducto.Location = new Point(125, 12);
             cmbProducto.Name = "cmbProducto";
             cmbProducto.Size = new Size(121, 23);
             cmbProducto.TabIndex = 0;
@@ -55,7 +55,7 @@
             // dtpDesde
             // 
             dtpDesde.CustomFormat = "yyyy-MM-dd";
-            dtpDesde.Location = new Point(145, 50);
+            dtpDesde.Location = new Point(125, 45);
             dtpDesde.Name = "dtpDesde";
             dtpDesde.Size = new Size(212, 23);
             dtpDesde.TabIndex = 1;
@@ -63,14 +63,14 @@
             // dtpHasta
             // 
             dtpHasta.CustomFormat = "yyyy-MM-dd";
-            dtpHasta.Location = new Point(431, 46);
+            dtpHasta.Location = new Point(411, 41);
             dtpHasta.Name = "dtpHasta";
             dtpHasta.Size = new Size(218, 23);
             dtpHasta.TabIndex = 2;
             // 
             // btnConsultar
             // 
-            btnConsultar.Location = new Point(329, 89);
+            btnConsultar.Location = new Point(309, 84);
             btnConsultar.Name = "btnConsultar";
             btnConsultar.Size = new Size(75, 32);
             btnConsultar.TabIndex = 3;
@@ -81,14 +81,14 @@
             // dgvKardex
             // 
             dgvKardex.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvKardex.Location = new Point(71, 136);
+            dgvKardex.Location = new Point(51, 136);
             dgvKardex.Name = "dgvKardex";
-            dgvKardex.Size = new Size(611, 150);
+            dgvKardex.Size = new Size(767, 150);
             dgvKardex.TabIndex = 4;
             // 
             // txtStockActual
             // 
-            txtStockActual.Location = new Point(192, 335);
+            txtStockActual.Location = new Point(233, 334);
             txtStockActual.Name = "txtStockActual";
             txtStockActual.ReadOnly = true;
             txtStockActual.Size = new Size(100, 23);
@@ -96,7 +96,7 @@
             // 
             // txtCostoPromedio
             // 
-            txtCostoPromedio.Location = new Point(428, 335);
+            txtCostoPromedio.Location = new Point(469, 334);
             txtCostoPromedio.Name = "txtCostoPromedio";
             txtCostoPromedio.ReadOnly = true;
             txtCostoPromedio.Size = new Size(100, 23);
@@ -105,7 +105,7 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(83, 20);
+            label1.Location = new Point(63, 15);
             label1.Name = "label1";
             label1.Size = new Size(56, 15);
             label1.TabIndex = 7;
@@ -114,7 +114,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(100, 56);
+            label2.Location = new Point(80, 51);
             label2.Name = "label2";
             label2.Size = new Size(39, 15);
             label2.TabIndex = 8;
@@ -123,7 +123,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(388, 52);
+            label3.Location = new Point(368, 47);
             label3.Name = "label3";
             label3.Size = new Size(37, 15);
             label3.TabIndex = 9;
@@ -132,7 +132,7 @@
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(113, 338);
+            label4.Location = new Point(154, 337);
             label4.Name = "label4";
             label4.Size = new Size(73, 15);
             label4.TabIndex = 10;
@@ -141,7 +141,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(329, 338);
+            label5.Location = new Point(370, 337);
             label5.Name = "label5";
             label5.Size = new Size(93, 15);
             label5.TabIndex = 11;
@@ -152,7 +152,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
-            ClientSize = new Size(719, 389);
+            ClientSize = new Size(844, 389);
             Controls.Add(label5);
             Controls.Add(label4);
             Controls.Add(label3);
