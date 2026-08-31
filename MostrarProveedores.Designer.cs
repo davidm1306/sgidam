@@ -30,13 +30,14 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MostrarProveedores));
             dgvProveedores = new DataGridView();
-            chkOcultarInactivos = new CheckBox();
             txtBuscar = new TextBox();
             lstProductos = new ListBox();
             label1 = new Label();
-            btnBuscar = new Button();
             btnEditar = new Button();
             btnCerrar = new Button();
+            lblFiltro = new Label();
+            lblTotal = new Label();
+            cmbFiltroEstatus = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)dgvProveedores).BeginInit();
             SuspendLayout();
             // 
@@ -48,23 +49,13 @@
             dgvProveedores.Size = new Size(927, 150);
             dgvProveedores.TabIndex = 0;
             // 
-            // chkOcultarInactivos
-            // 
-            chkOcultarInactivos.AutoSize = true;
-            chkOcultarInactivos.Checked = true;
-            chkOcultarInactivos.CheckState = CheckState.Checked;
-            chkOcultarInactivos.Location = new Point(495, 43);
-            chkOcultarInactivos.Name = "chkOcultarInactivos";
-            chkOcultarInactivos.Size = new Size(115, 19);
-            chkOcultarInactivos.TabIndex = 1;
-            chkOcultarInactivos.Text = "Ocultar Inactivos";
-            chkOcultarInactivos.UseVisualStyleBackColor = true;
-            // 
             // txtBuscar
             // 
+            txtBuscar.BackColor = Color.FromArgb(224, 251, 252);
+            txtBuscar.BorderStyle = BorderStyle.None;
             txtBuscar.Location = new Point(174, 40);
             txtBuscar.Name = "txtBuscar";
-            txtBuscar.Size = new Size(163, 23);
+            txtBuscar.Size = new Size(199, 16);
             txtBuscar.TabIndex = 2;
             // 
             // lstProductos
@@ -84,16 +75,6 @@
             label1.Size = new Size(137, 15);
             label1.TabIndex = 4;
             label1.Text = "Buscar por nombre o RIF";
-            // 
-            // btnBuscar
-            // 
-            btnBuscar.Location = new Point(386, 33);
-            btnBuscar.Name = "btnBuscar";
-            btnBuscar.Size = new Size(75, 35);
-            btnBuscar.TabIndex = 5;
-            btnBuscar.Text = "Buscar";
-            btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscar_Click;
             // 
             // btnEditar
             // 
@@ -115,24 +96,52 @@
             btnCerrar.UseVisualStyleBackColor = true;
             btnCerrar.Click += btnCerrar_Click;
             // 
+            // lblFiltro
+            // 
+            lblFiltro.AutoSize = true;
+            lblFiltro.Location = new Point(391, 44);
+            lblFiltro.Name = "lblFiltro";
+            lblFiltro.Size = new Size(98, 15);
+            lblFiltro.TabIndex = 8;
+            lblFiltro.Text = "Filtrar por Estatus";
+            // 
+            // lblTotal
+            // 
+            lblTotal.AutoSize = true;
+            lblTotal.Location = new Point(641, 43);
+            lblTotal.Name = "lblTotal";
+            lblTotal.Size = new Size(32, 15);
+            lblTotal.TabIndex = 9;
+            lblTotal.Text = "Total";
+            // 
+            // cmbFiltroEstatus
+            // 
+            cmbFiltroEstatus.FormattingEnabled = true;
+            cmbFiltroEstatus.Location = new Point(495, 40);
+            cmbFiltroEstatus.Name = "cmbFiltroEstatus";
+            cmbFiltroEstatus.Size = new Size(121, 23);
+            cmbFiltroEstatus.TabIndex = 10;
+            // 
             // MostrarProveedores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
             ClientSize = new Size(988, 450);
+            Controls.Add(cmbFiltroEstatus);
+            Controls.Add(lblTotal);
+            Controls.Add(lblFiltro);
             Controls.Add(btnCerrar);
             Controls.Add(btnEditar);
-            Controls.Add(btnBuscar);
             Controls.Add(label1);
             Controls.Add(lstProductos);
             Controls.Add(txtBuscar);
-            Controls.Add(chkOcultarInactivos);
             Controls.Add(dgvProveedores);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MostrarProveedores";
             Text = "MostrarProveedores";
             Load += MostrarProveedores_Load;
+            Paint += MostrarProveedores_Paint;
             ((System.ComponentModel.ISupportInitialize)dgvProveedores).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -148,5 +157,8 @@
         private Button btnBuscar;
         private Button btnEditar;
         private Button btnCerrar;
+        private Label lblFiltro;
+        private Label lblTotal;
+        private ComboBox cmbFiltroEstatus;
     }
 }

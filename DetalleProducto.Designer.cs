@@ -63,73 +63,82 @@
             // 
             // lblNombre
             // 
+            lblNombre.AutoSize = true;
             lblNombre.Location = new Point(192, 15);
             lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(100, 23);
+            lblNombre.Size = new Size(17, 15);
             lblNombre.TabIndex = 1;
             lblNombre.Text = "--";
             // 
             // lblCodigo
             // 
+            lblCodigo.AutoSize = true;
             lblCodigo.Location = new Point(192, 38);
             lblCodigo.Name = "lblCodigo";
-            lblCodigo.Size = new Size(100, 23);
+            lblCodigo.Size = new Size(17, 15);
             lblCodigo.TabIndex = 1;
             lblCodigo.Text = "--";
             // 
             // lblMarca
             // 
+            lblMarca.AutoSize = true;
             lblMarca.Location = new Point(192, 61);
             lblMarca.Name = "lblMarca";
-            lblMarca.Size = new Size(100, 23);
+            lblMarca.Size = new Size(17, 15);
             lblMarca.TabIndex = 1;
             lblMarca.Text = "--";
             // 
             // lblCategoria
             // 
+            lblCategoria.AutoSize = true;
             lblCategoria.Location = new Point(192, 84);
             lblCategoria.Name = "lblCategoria";
-            lblCategoria.Size = new Size(100, 23);
+            lblCategoria.Size = new Size(17, 15);
             lblCategoria.TabIndex = 1;
             lblCategoria.Text = "--";
             // 
             // lblStock
             // 
+            lblStock.AutoSize = true;
             lblStock.Location = new Point(192, 107);
             lblStock.Name = "lblStock";
-            lblStock.Size = new Size(100, 23);
+            lblStock.Size = new Size(17, 15);
             lblStock.TabIndex = 1;
             lblStock.Text = "--";
             // 
             // lblStockMinimo
             // 
+            lblStockMinimo.AutoSize = true;
             lblStockMinimo.Location = new Point(192, 130);
             lblStockMinimo.Name = "lblStockMinimo";
-            lblStockMinimo.Size = new Size(100, 23);
+            lblStockMinimo.Size = new Size(17, 15);
             lblStockMinimo.TabIndex = 1;
             lblStockMinimo.Text = "--";
             // 
             // lblPrecioCompra
             // 
+            lblPrecioCompra.AutoSize = true;
             lblPrecioCompra.Location = new Point(192, 153);
             lblPrecioCompra.Name = "lblPrecioCompra";
-            lblPrecioCompra.Size = new Size(100, 23);
+            lblPrecioCompra.Size = new Size(17, 15);
             lblPrecioCompra.TabIndex = 1;
             lblPrecioCompra.Text = "--";
             // 
             // lblPrecioVenta
             // 
+            lblPrecioVenta.AutoSize = true;
             lblPrecioVenta.Location = new Point(192, 176);
             lblPrecioVenta.Name = "lblPrecioVenta";
-            lblPrecioVenta.Size = new Size(100, 23);
+            lblPrecioVenta.Size = new Size(17, 15);
             lblPrecioVenta.TabIndex = 1;
             lblPrecioVenta.Text = "--";
             // 
             // lblEstatus
             // 
+            lblEstatus.AutoSize = true;
             lblEstatus.Location = new Point(192, 199);
             lblEstatus.Name = "lblEstatus";
-            lblEstatus.Size = new Size(100, 23);
+            lblEstatus.Size = new Size(17, 15);
             lblEstatus.TabIndex = 1;
             lblEstatus.Text = "--";
             // 
@@ -247,6 +256,7 @@
             Load += DetalleProducto_Load;
             ((System.ComponentModel.ISupportInitialize)pbImagen).EndInit();
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion

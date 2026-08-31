@@ -32,19 +32,18 @@
             label1 = new Label();
             label2 = new Label();
             label3 = new Label();
-            label4 = new Label();
             btnGuardar = new Button();
             btnCancelar = new Button();
             cmbProveedor = new ComboBox();
             cmbProducto = new ComboBox();
             txtPrecio = new TextBox();
-            cmbEstatus = new ComboBox();
+            lblTitulo = new Label();
             SuspendLayout();
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(29, 26);
+            label1.Location = new Point(29, 57);
             label1.Name = "label1";
             label1.Size = new Size(61, 15);
             label1.TabIndex = 0;
@@ -53,7 +52,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(34, 56);
+            label2.Location = new Point(34, 87);
             label2.Name = "label2";
             label2.Size = new Size(56, 15);
             label2.TabIndex = 0;
@@ -62,20 +61,11 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(50, 92);
+            label3.Location = new Point(50, 123);
             label3.Name = "label3";
             label3.Size = new Size(40, 15);
             label3.TabIndex = 0;
             label3.Text = "Precio";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(46, 128);
-            label4.Name = "label4";
-            label4.Size = new Size(44, 15);
-            label4.TabIndex = 0;
-            label4.Text = "Estatus";
             // 
             // btnGuardar
             // 
@@ -102,7 +92,7 @@
             cmbProveedor.DisplayMember = "nombre_proveedor";
             cmbProveedor.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProveedor.FormattingEnabled = true;
-            cmbProveedor.Location = new Point(96, 23);
+            cmbProveedor.Location = new Point(96, 54);
             cmbProveedor.Name = "cmbProveedor";
             cmbProveedor.Size = new Size(217, 23);
             cmbProveedor.TabIndex = 3;
@@ -113,7 +103,7 @@
             cmbProducto.DisplayMember = "nombre_producto";
             cmbProducto.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbProducto.FormattingEnabled = true;
-            cmbProducto.Location = new Point(95, 56);
+            cmbProducto.Location = new Point(95, 87);
             cmbProducto.Name = "cmbProducto";
             cmbProducto.Size = new Size(218, 23);
             cmbProducto.TabIndex = 4;
@@ -121,39 +111,40 @@
             // 
             // txtPrecio
             // 
-            txtPrecio.Location = new Point(95, 89);
+            txtPrecio.Location = new Point(95, 120);
             txtPrecio.MaxLength = 12;
             txtPrecio.Name = "txtPrecio";
-            txtPrecio.Size = new Size(47, 23);
+            txtPrecio.Size = new Size(86, 23);
             txtPrecio.TabIndex = 3;
             // 
-            // cmbEstatus
+            // lblTitulo
             // 
-            cmbEstatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEstatus.FormattingEnabled = true;
-            cmbEstatus.Location = new Point(95, 125);
-            cmbEstatus.Name = "cmbEstatus";
-            cmbEstatus.Size = new Size(95, 23);
-            cmbEstatus.TabIndex = 5;
+            lblTitulo.AutoSize = true;
+            lblTitulo.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblTitulo.Location = new Point(29, 9);
+            lblTitulo.Name = "lblTitulo";
+            lblTitulo.Size = new Size(288, 21);
+            lblTitulo.TabIndex = 5;
+            lblTitulo.Text = "Registrar productos por proveedores";
             // 
             // ListaProveedores
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
-            ClientSize = new Size(325, 239);
-            Controls.Add(cmbEstatus);
+            ClientSize = new Size(340, 239);
+            Controls.Add(lblTitulo);
             Controls.Add(txtPrecio);
             Controls.Add(cmbProducto);
             Controls.Add(cmbProveedor);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
-            Controls.Add(label4);
             Controls.Add(label3);
             Controls.Add(label2);
             Controls.Add(label1);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ListaProveedores";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "ListaProveedores";
             Load += ListaProveedores_Load;
             ResumeLayout(false);
@@ -165,12 +156,11 @@
         private Label label1;
         private Label label2;
         private Label label3;
-        private Label label4;
         private Button btnGuardar;
         private Button btnCancelar;
         private ComboBox cmbProveedor;
         private ComboBox cmbProducto;
         private TextBox txtPrecio;
-        private ComboBox cmbEstatus;
+        private Label lblTitulo;
     }
 }

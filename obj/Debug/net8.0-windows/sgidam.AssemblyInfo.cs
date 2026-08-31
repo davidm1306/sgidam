@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sgidam")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+03e0b7ee403521f24e629dc82f31af5d9848ff78")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1be9b44be34e01877c29a9427df79ae1552a8ef4")]
 [assembly: System.Reflection.AssemblyProductAttribute("sgidam")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sgidam")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

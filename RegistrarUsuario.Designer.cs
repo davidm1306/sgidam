@@ -35,7 +35,6 @@
             lblContraseña = new Label();
             lblConfirmarContra = new Label();
             lblRol = new Label();
-            lblEstatus = new Label();
             lblCedula = new Label();
             txtNombreEmpleado = new TextBox();
             txtApellido = new TextBox();
@@ -44,7 +43,6 @@
             txtPassword = new TextBox();
             txtConfirmPassword = new TextBox();
             cmbRol = new ComboBox();
-            cmbEstatus = new ComboBox();
             btnGuardar = new Button();
             btnCancelar = new Button();
             SuspendLayout();
@@ -103,15 +101,6 @@
             lblRol.TabIndex = 5;
             lblRol.Text = "Rol";
             // 
-            // lblEstatus
-            // 
-            lblEstatus.AutoSize = true;
-            lblEstatus.Location = new Point(119, 251);
-            lblEstatus.Name = "lblEstatus";
-            lblEstatus.Size = new Size(44, 15);
-            lblEstatus.TabIndex = 6;
-            lblEstatus.Text = "Estatus";
-            // 
             // lblCedula
             // 
             lblCedula.AutoSize = true;
@@ -140,7 +129,7 @@
             // txtCedula
             // 
             txtCedula.Location = new Point(175, 80);
-            txtCedula.MaxLength = 20;
+            txtCedula.MaxLength = 8;
             txtCedula.Name = "txtCedula";
             txtCedula.Size = new Size(121, 23);
             txtCedula.TabIndex = 3;
@@ -168,7 +157,6 @@
             txtConfirmPassword.PasswordChar = '*';
             txtConfirmPassword.Size = new Size(121, 23);
             txtConfirmPassword.TabIndex = 6;
-            txtConfirmPassword.TextChanged += txtConfirmPassword_TextChanged;
             // 
             // cmbRol
             // 
@@ -179,19 +167,10 @@
             cmbRol.Size = new Size(121, 23);
             cmbRol.TabIndex = 7;
             // 
-            // cmbEstatus
-            // 
-            cmbEstatus.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbEstatus.FormattingEnabled = true;
-            cmbEstatus.Location = new Point(175, 243);
-            cmbEstatus.Name = "cmbEstatus";
-            cmbEstatus.Size = new Size(121, 23);
-            cmbEstatus.TabIndex = 8;
-            // 
             // btnGuardar
             // 
             btnGuardar.BackColor = SystemColors.Control;
-            btnGuardar.Location = new Point(66, 305);
+            btnGuardar.Location = new Point(66, 272);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(81, 36);
             btnGuardar.TabIndex = 9;
@@ -201,7 +180,7 @@
             // 
             // btnCancelar
             // 
-            btnCancelar.Location = new Point(175, 305);
+            btnCancelar.Location = new Point(175, 272);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(76, 36);
             btnCancelar.TabIndex = 10;
@@ -214,10 +193,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
-            ClientSize = new Size(326, 366);
+            ClientSize = new Size(326, 332);
             Controls.Add(btnCancelar);
             Controls.Add(btnGuardar);
-            Controls.Add(cmbEstatus);
             Controls.Add(cmbRol);
             Controls.Add(txtConfirmPassword);
             Controls.Add(txtPassword);
@@ -226,7 +204,6 @@
             Controls.Add(txtApellido);
             Controls.Add(txtNombreEmpleado);
             Controls.Add(lblCedula);
-            Controls.Add(lblEstatus);
             Controls.Add(lblRol);
             Controls.Add(lblConfirmarContra);
             Controls.Add(lblContraseña);
@@ -249,7 +226,6 @@
         private Label lblContraseña;
         private Label lblConfirmarContra;
         private Label lblRol;
-        private Label lblEstatus;
         private Label lblCedula;
         private TextBox txtNombreEmpleado;
         private TextBox txtApellido;
@@ -258,7 +234,6 @@
         private TextBox txtPassword;
         private TextBox txtConfirmPassword;
         private ComboBox cmbRol;
-        private ComboBox cmbEstatus;
         private Button btnGuardar;
         private Button btnCancelar;
     }

@@ -139,7 +139,6 @@
             label1.Size = new Size(118, 15);
             label1.TabIndex = 0;
             label1.Text = "Imagen del Producto";
-            label1.Click += label9_Click;
             // 
             // btnGuardar
             // 
@@ -223,9 +222,11 @@
             // 
             nudStockMinimo.Location = new Point(190, 268);
             nudStockMinimo.Maximum = new decimal(new int[] { 9999999, 0, 0, 0 });
+            nudStockMinimo.Minimum = new decimal(new int[] { 5, 0, 0, 0 });
             nudStockMinimo.Name = "nudStockMinimo";
             nudStockMinimo.Size = new Size(121, 23);
             nudStockMinimo.TabIndex = 9;
+            nudStockMinimo.Value = new decimal(new int[] { 5, 0, 0, 0 });
             // 
             // pbImagen
             // 
@@ -240,9 +241,9 @@
             // 
             // btnCargarImagen
             // 
-            btnCargarImagen.Location = new Point(339, 357);
+            btnCargarImagen.Location = new Point(338, 337);
             btnCargarImagen.Name = "btnCargarImagen";
-            btnCargarImagen.Size = new Size(98, 32);
+            btnCargarImagen.Size = new Size(98, 36);
             btnCargarImagen.TabIndex = 11;
             btnCargarImagen.Text = "Cargar imagen";
             btnCargarImagen.UseVisualStyleBackColor = true;

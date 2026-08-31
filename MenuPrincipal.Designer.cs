@@ -59,6 +59,26 @@
             btnRegistrarMarca = new Button();
             btnProductos = new Button();
             panelLogo = new Panel();
+            panelDashboard = new Panel();
+            comboPeriodo = new ComboBox();
+            panelTopProductos = new Panel();
+            label6 = new Label();
+            dgvTopProductos = new DataGridView();
+            panelResumen = new Panel();
+            label4 = new Label();
+            lblVentasHoy = new Label();
+            lblValorInventario = new Label();
+            label3 = new Label();
+            lblStockCritico = new Label();
+            lblTotalProductos = new Label();
+            label2 = new Label();
+            label1 = new Label();
+            panelTopClientes = new Panel();
+            label7 = new Label();
+            dgvTopClientes = new DataGridView();
+            panelProductosCriticos = new Panel();
+            label5 = new Label();
+            dgvStockCritico = new DataGridView();
             panelMenuLateral.SuspendLayout();
             panelSubMenuUsuarios.SuspendLayout();
             panelSubMenuReportes.SuspendLayout();
@@ -66,6 +86,14 @@
             panelSubMenuCompras.SuspendLayout();
             panelSubMenuProveedores.SuspendLayout();
             panelSubMenuProductos.SuspendLayout();
+            panelDashboard.SuspendLayout();
+            panelTopProductos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTopProductos).BeginInit();
+            panelResumen.SuspendLayout();
+            panelTopClientes.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTopClientes).BeginInit();
+            panelProductosCriticos.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvStockCritico).BeginInit();
             SuspendLayout();
             // 
             // panelMenuLateral
@@ -89,7 +117,7 @@
             panelMenuLateral.Dock = DockStyle.Left;
             panelMenuLateral.Location = new Point(0, 0);
             panelMenuLateral.Name = "panelMenuLateral";
-            panelMenuLateral.Size = new Size(200, 961);
+            panelMenuLateral.Size = new Size(200, 1037);
             panelMenuLateral.TabIndex = 4;
             // 
             // btnCerrarSesion
@@ -127,6 +155,7 @@
             btnAdministrarUsuario.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnAdministrarUsuario.FlatStyle = FlatStyle.Flat;
             btnAdministrarUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnAdministrarUsuario.ForeColor = Color.Black;
             btnAdministrarUsuario.Location = new Point(0, 28);
             btnAdministrarUsuario.Name = "btnAdministrarUsuario";
             btnAdministrarUsuario.Padding = new Padding(25, 0, 0, 0);
@@ -144,6 +173,7 @@
             btnRegistrarUsuario.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarUsuario.FlatStyle = FlatStyle.Flat;
             btnRegistrarUsuario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarUsuario.ForeColor = Color.Black;
             btnRegistrarUsuario.Location = new Point(0, 0);
             btnRegistrarUsuario.Name = "btnRegistrarUsuario";
             btnRegistrarUsuario.Padding = new Padding(25, 0, 0, 0);
@@ -188,6 +218,7 @@
             button2.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             button2.FlatStyle = FlatStyle.Flat;
             button2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            button2.ForeColor = Color.Black;
             button2.Location = new Point(0, 28);
             button2.Name = "button2";
             button2.Padding = new Padding(25, 0, 0, 0);
@@ -204,6 +235,7 @@
             btnKardex.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnKardex.FlatStyle = FlatStyle.Flat;
             btnKardex.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnKardex.ForeColor = Color.Black;
             btnKardex.Location = new Point(0, 0);
             btnKardex.Name = "btnKardex";
             btnKardex.Padding = new Padding(25, 0, 0, 0);
@@ -249,6 +281,7 @@
             btnListaFacturas.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnListaFacturas.FlatStyle = FlatStyle.Flat;
             btnListaFacturas.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnListaFacturas.ForeColor = Color.Black;
             btnListaFacturas.Location = new Point(0, 56);
             btnListaFacturas.Name = "btnListaFacturas";
             btnListaFacturas.Padding = new Padding(25, 0, 0, 0);
@@ -266,6 +299,7 @@
             btnRegistrarDevolucion.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarDevolucion.FlatStyle = FlatStyle.Flat;
             btnRegistrarDevolucion.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarDevolucion.ForeColor = Color.Black;
             btnRegistrarDevolucion.Location = new Point(0, 28);
             btnRegistrarDevolucion.Name = "btnRegistrarDevolucion";
             btnRegistrarDevolucion.Padding = new Padding(25, 0, 0, 0);
@@ -283,6 +317,7 @@
             btnRegistrarVenta.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarVenta.FlatStyle = FlatStyle.Flat;
             btnRegistrarVenta.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarVenta.ForeColor = Color.Black;
             btnRegistrarVenta.Location = new Point(0, 0);
             btnRegistrarVenta.Name = "btnRegistrarVenta";
             btnRegistrarVenta.Padding = new Padding(25, 0, 0, 0);
@@ -326,6 +361,7 @@
             btnRegistrarCompra.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarCompra.FlatStyle = FlatStyle.Flat;
             btnRegistrarCompra.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarCompra.ForeColor = Color.Black;
             btnRegistrarCompra.Location = new Point(0, 0);
             btnRegistrarCompra.Name = "btnRegistrarCompra";
             btnRegistrarCompra.Padding = new Padding(25, 0, 0, 0);
@@ -371,6 +407,7 @@
             btnListaDeProveedores.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnListaDeProveedores.FlatStyle = FlatStyle.Flat;
             btnListaDeProveedores.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnListaDeProveedores.ForeColor = Color.Black;
             btnListaDeProveedores.Location = new Point(0, 68);
             btnListaDeProveedores.Name = "btnListaDeProveedores";
             btnListaDeProveedores.Padding = new Padding(25, 0, 0, 0);
@@ -388,6 +425,7 @@
             btnRegistrarProveedorProducto.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarProveedorProducto.FlatStyle = FlatStyle.Flat;
             btnRegistrarProveedorProducto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarProveedorProducto.ForeColor = Color.Black;
             btnRegistrarProveedorProducto.Location = new Point(0, 28);
             btnRegistrarProveedorProducto.Name = "btnRegistrarProveedorProducto";
             btnRegistrarProveedorProducto.Padding = new Padding(25, 0, 0, 0);
@@ -405,6 +443,7 @@
             btnRegistarProveedor.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistarProveedor.FlatStyle = FlatStyle.Flat;
             btnRegistarProveedor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistarProveedor.ForeColor = Color.Black;
             btnRegistarProveedor.Location = new Point(0, 0);
             btnRegistarProveedor.Name = "btnRegistarProveedor";
             btnRegistarProveedor.Padding = new Padding(25, 0, 0, 0);
@@ -451,6 +490,7 @@
             btnInventario.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnInventario.FlatStyle = FlatStyle.Flat;
             btnInventario.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnInventario.ForeColor = Color.Black;
             btnInventario.Location = new Point(0, 84);
             btnInventario.Name = "btnInventario";
             btnInventario.Padding = new Padding(25, 0, 0, 0);
@@ -468,6 +508,7 @@
             btnRegistrarProducto.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarProducto.FlatStyle = FlatStyle.Flat;
             btnRegistrarProducto.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarProducto.ForeColor = Color.Black;
             btnRegistrarProducto.Location = new Point(0, 56);
             btnRegistrarProducto.Name = "btnRegistrarProducto";
             btnRegistrarProducto.Padding = new Padding(25, 0, 0, 0);
@@ -485,6 +526,7 @@
             btnRegistrarCategoria.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarCategoria.FlatStyle = FlatStyle.Flat;
             btnRegistrarCategoria.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarCategoria.ForeColor = Color.Black;
             btnRegistrarCategoria.Location = new Point(0, 28);
             btnRegistrarCategoria.Name = "btnRegistrarCategoria";
             btnRegistrarCategoria.Padding = new Padding(25, 0, 0, 0);
@@ -502,6 +544,7 @@
             btnRegistrarMarca.FlatAppearance.MouseDownBackColor = Color.FromArgb(255, 224, 192);
             btnRegistrarMarca.FlatStyle = FlatStyle.Flat;
             btnRegistrarMarca.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRegistrarMarca.ForeColor = Color.Black;
             btnRegistrarMarca.Location = new Point(0, 0);
             btnRegistrarMarca.Name = "btnRegistrarMarca";
             btnRegistrarMarca.Padding = new Padding(25, 0, 0, 0);
@@ -538,17 +581,273 @@
             panelLogo.Size = new Size(200, 100);
             panelLogo.TabIndex = 0;
             // 
+            // panelDashboard
+            // 
+            panelDashboard.AutoScroll = true;
+            panelDashboard.Controls.Add(comboPeriodo);
+            panelDashboard.Controls.Add(panelTopProductos);
+            panelDashboard.Controls.Add(panelResumen);
+            panelDashboard.Controls.Add(panelTopClientes);
+            panelDashboard.Controls.Add(panelProductosCriticos);
+            panelDashboard.Dock = DockStyle.Fill;
+            panelDashboard.Location = new Point(200, 0);
+            panelDashboard.Name = "panelDashboard";
+            panelDashboard.Size = new Size(831, 1037);
+            panelDashboard.TabIndex = 5;
+            // 
+            // comboPeriodo
+            // 
+            comboPeriodo.FormattingEnabled = true;
+            comboPeriodo.Location = new Point(639, 39);
+            comboPeriodo.Name = "comboPeriodo";
+            comboPeriodo.Size = new Size(121, 23);
+            comboPeriodo.TabIndex = 2;
+            // 
+            // panelTopProductos
+            // 
+            panelTopProductos.Controls.Add(label6);
+            panelTopProductos.Controls.Add(dgvTopProductos);
+            panelTopProductos.Font = new Font("Segoe UI", 10F);
+            panelTopProductos.ForeColor = Color.Black;
+            panelTopProductos.Location = new Point(52, 498);
+            panelTopProductos.Name = "panelTopProductos";
+            panelTopProductos.Size = new Size(728, 238);
+            panelTopProductos.TabIndex = 1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(51, 11);
+            label6.Name = "label6";
+            label6.Size = new Size(142, 19);
+            label6.TabIndex = 1;
+            label6.Text = "Productos Top Ventas";
+            // 
+            // dgvTopProductos
+            // 
+            dgvTopProductos.AllowUserToAddRows = false;
+            dgvTopProductos.AllowUserToDeleteRows = false;
+            dgvTopProductos.AllowUserToResizeColumns = false;
+            dgvTopProductos.AllowUserToResizeRows = false;
+            dgvTopProductos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTopProductos.BackgroundColor = Color.FromArgb(224, 251, 252);
+            dgvTopProductos.BorderStyle = BorderStyle.None;
+            dgvTopProductos.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvTopProductos.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvTopProductos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTopProductos.Enabled = false;
+            dgvTopProductos.Location = new Point(51, 48);
+            dgvTopProductos.MultiSelect = false;
+            dgvTopProductos.Name = "dgvTopProductos";
+            dgvTopProductos.RowHeadersVisible = false;
+            dgvTopProductos.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvTopProductos.Size = new Size(592, 187);
+            dgvTopProductos.TabIndex = 0;
+            dgvTopProductos.TabStop = false;
+            // 
+            // panelResumen
+            // 
+            panelResumen.Controls.Add(label4);
+            panelResumen.Controls.Add(lblVentasHoy);
+            panelResumen.Controls.Add(lblValorInventario);
+            panelResumen.Controls.Add(label3);
+            panelResumen.Controls.Add(lblStockCritico);
+            panelResumen.Controls.Add(lblTotalProductos);
+            panelResumen.Controls.Add(label2);
+            panelResumen.Controls.Add(label1);
+            panelResumen.Location = new Point(52, 39);
+            panelResumen.Name = "panelResumen";
+            panelResumen.Size = new Size(421, 152);
+            panelResumen.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 10F);
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(24, 101);
+            label4.Name = "label4";
+            label4.Size = new Size(98, 19);
+            label4.TabIndex = 0;
+            label4.Text = "Ventas de Hoy";
+            // 
+            // lblVentasHoy
+            // 
+            lblVentasHoy.AutoSize = true;
+            lblVentasHoy.Font = new Font("Segoe UI", 10F);
+            lblVentasHoy.ForeColor = Color.Black;
+            lblVentasHoy.Location = new Point(176, 101);
+            lblVentasHoy.Name = "lblVentasHoy";
+            lblVentasHoy.Size = new Size(98, 19);
+            lblVentasHoy.TabIndex = 0;
+            lblVentasHoy.Text = "Ventas de Hoy";
+            // 
+            // lblValorInventario
+            // 
+            lblValorInventario.AutoSize = true;
+            lblValorInventario.Font = new Font("Segoe UI", 10F);
+            lblValorInventario.ForeColor = Color.Black;
+            lblValorInventario.Location = new Point(176, 77);
+            lblValorInventario.Name = "lblValorInventario";
+            lblValorInventario.Size = new Size(128, 19);
+            lblValorInventario.TabIndex = 0;
+            lblValorInventario.Text = "Valor del Inventario";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 10F);
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(24, 77);
+            label3.Name = "label3";
+            label3.Size = new Size(128, 19);
+            label3.TabIndex = 0;
+            label3.Text = "Valor del Inventario";
+            // 
+            // lblStockCritico
+            // 
+            lblStockCritico.AutoSize = true;
+            lblStockCritico.Font = new Font("Segoe UI", 10F);
+            lblStockCritico.ForeColor = Color.Black;
+            lblStockCritico.Location = new Point(176, 51);
+            lblStockCritico.Name = "lblStockCritico";
+            lblStockCritico.Size = new Size(85, 19);
+            lblStockCritico.TabIndex = 0;
+            lblStockCritico.Text = "Stock Critico";
+            // 
+            // lblTotalProductos
+            // 
+            lblTotalProductos.AutoSize = true;
+            lblTotalProductos.Font = new Font("Segoe UI", 10F);
+            lblTotalProductos.ForeColor = Color.Black;
+            lblTotalProductos.Location = new Point(176, 23);
+            lblTotalProductos.Name = "lblTotalProductos";
+            lblTotalProductos.Size = new Size(104, 19);
+            lblTotalProductos.TabIndex = 0;
+            lblTotalProductos.Text = "Total Productos";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 10F);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(24, 51);
+            label2.Name = "label2";
+            label2.Size = new Size(85, 19);
+            label2.TabIndex = 0;
+            label2.Text = "Stock Critico";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 10F);
+            label1.ForeColor = Color.Black;
+            label1.Location = new Point(24, 23);
+            label1.Name = "label1";
+            label1.Size = new Size(104, 19);
+            label1.TabIndex = 0;
+            label1.Text = "Total Productos";
+            // 
+            // panelTopClientes
+            // 
+            panelTopClientes.Controls.Add(label7);
+            panelTopClientes.Controls.Add(dgvTopClientes);
+            panelTopClientes.Font = new Font("Segoe UI", 10F);
+            panelTopClientes.ForeColor = Color.Black;
+            panelTopClientes.Location = new Point(52, 770);
+            panelTopClientes.Name = "panelTopClientes";
+            panelTopClientes.Size = new Size(728, 235);
+            panelTopClientes.TabIndex = 1;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.ForeColor = Color.Black;
+            label7.Location = new Point(51, 18);
+            label7.Name = "label7";
+            label7.Size = new Size(83, 19);
+            label7.TabIndex = 1;
+            label7.Text = "Top Clientes";
+            // 
+            // dgvTopClientes
+            // 
+            dgvTopClientes.AllowUserToAddRows = false;
+            dgvTopClientes.AllowUserToDeleteRows = false;
+            dgvTopClientes.AllowUserToResizeColumns = false;
+            dgvTopClientes.AllowUserToResizeRows = false;
+            dgvTopClientes.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvTopClientes.BackgroundColor = Color.FromArgb(224, 251, 252);
+            dgvTopClientes.BorderStyle = BorderStyle.None;
+            dgvTopClientes.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvTopClientes.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvTopClientes.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvTopClientes.Enabled = false;
+            dgvTopClientes.Location = new Point(51, 52);
+            dgvTopClientes.MultiSelect = false;
+            dgvTopClientes.Name = "dgvTopClientes";
+            dgvTopClientes.RowHeadersVisible = false;
+            dgvTopClientes.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvTopClientes.Size = new Size(601, 180);
+            dgvTopClientes.TabIndex = 0;
+            dgvTopClientes.TabStop = false;
+            // 
+            // panelProductosCriticos
+            // 
+            panelProductosCriticos.Controls.Add(label5);
+            panelProductosCriticos.Controls.Add(dgvStockCritico);
+            panelProductosCriticos.Font = new Font("Segoe UI", 10F);
+            panelProductosCriticos.ForeColor = Color.Black;
+            panelProductosCriticos.Location = new Point(52, 219);
+            panelProductosCriticos.Name = "panelProductosCriticos";
+            panelProductosCriticos.Size = new Size(728, 241);
+            panelProductosCriticos.TabIndex = 0;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(51, 22);
+            label5.Name = "label5";
+            label5.Size = new Size(177, 19);
+            label5.TabIndex = 1;
+            label5.Text = "Productos con Stock Critico";
+            // 
+            // dgvStockCritico
+            // 
+            dgvStockCritico.AllowUserToAddRows = false;
+            dgvStockCritico.AllowUserToDeleteRows = false;
+            dgvStockCritico.AllowUserToResizeColumns = false;
+            dgvStockCritico.AllowUserToResizeRows = false;
+            dgvStockCritico.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvStockCritico.BackgroundColor = Color.FromArgb(224, 251, 252);
+            dgvStockCritico.BorderStyle = BorderStyle.None;
+            dgvStockCritico.CellBorderStyle = DataGridViewCellBorderStyle.None;
+            dgvStockCritico.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dgvStockCritico.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dgvStockCritico.Enabled = false;
+            dgvStockCritico.Location = new Point(51, 53);
+            dgvStockCritico.MultiSelect = false;
+            dgvStockCritico.Name = "dgvStockCritico";
+            dgvStockCritico.RowHeadersVisible = false;
+            dgvStockCritico.SelectionMode = DataGridViewSelectionMode.CellSelect;
+            dgvStockCritico.Size = new Size(674, 185);
+            dgvStockCritico.TabIndex = 0;
+            dgvStockCritico.TabStop = false;
+            // 
             // MenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(224, 251, 252);
-            ClientSize = new Size(1067, 961);
+            ClientSize = new Size(1031, 1037);
+            Controls.Add(panelDashboard);
             Controls.Add(panelMenuLateral);
             ForeColor = Color.Gainsboro;
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "MenuPrincipal";
             Text = "MenuPrincipal";
+            FormClosing += FormMain_FormClosing;
             Load += MenuPrincipal_Load_1;
             panelMenuLateral.ResumeLayout(false);
             panelSubMenuUsuarios.ResumeLayout(false);
@@ -557,6 +856,18 @@
             panelSubMenuCompras.ResumeLayout(false);
             panelSubMenuProveedores.ResumeLayout(false);
             panelSubMenuProductos.ResumeLayout(false);
+            panelDashboard.ResumeLayout(false);
+            panelTopProductos.ResumeLayout(false);
+            panelTopProductos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTopProductos).EndInit();
+            panelResumen.ResumeLayout(false);
+            panelResumen.PerformLayout();
+            panelTopClientes.ResumeLayout(false);
+            panelTopClientes.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvTopClientes).EndInit();
+            panelProductosCriticos.ResumeLayout(false);
+            panelProductosCriticos.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dgvStockCritico).EndInit();
             ResumeLayout(false);
         }
 
@@ -594,5 +905,25 @@
         private Button btnInventario;
         private Button btnCerrarSesion;
         private Button btnListaFacturas;
+        private Panel panelDashboard;
+        private Panel panelProductosCriticos;
+        private Panel panelTopProductos;
+        private Panel panelResumen;
+        private Panel panelTopClientes;
+        private DataGridView dgvStockCritico;
+        private Label lblValorInventario;
+        private Label lblStockCritico;
+        private Label lblTotalProductos;
+        private DataGridView dgvTopClientes;
+        private ComboBox comboPeriodo;
+        private Label lblVentasHoy;
+        private DataGridView dgvTopProductos;
+        private Label label4;
+        private Label label3;
+        private Label label2;
+        private Label label1;
+        private Label label6;
+        private Label label7;
+        private Label label5;
     }
 }

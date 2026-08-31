@@ -80,7 +80,6 @@
             txtDireccion.Name = "txtDireccion";
             txtDireccion.Size = new Size(182, 23);
             txtDireccion.TabIndex = 18;
-            txtDireccion.Leave += txtDireccion_Leave;
             // 
             // txtTelefono
             // 
@@ -89,8 +88,6 @@
             txtTelefono.Name = "txtTelefono";
             txtTelefono.Size = new Size(182, 23);
             txtTelefono.TabIndex = 17;
-            txtTelefono.KeyPress += SoloNumeros;
-            txtTelefono.Leave += txtTelefono_Leave;
             // 
             // txtCorreo
             // 
@@ -107,7 +104,6 @@
             txtNombre.Name = "txtNombre";
             txtNombre.Size = new Size(182, 23);
             txtNombre.TabIndex = 16;
-            txtNombre.Leave += txtNombre_Leave;
             // 
             // label6
             // 

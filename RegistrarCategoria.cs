@@ -1,13 +1,6 @@
 ﻿using sgidam.Data;
 using sgidam.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace sgidam
@@ -17,8 +10,31 @@ namespace sgidam
         public RegistrarCategoria()
         {
             InitializeComponent();
+            ConfigurarEventos();
+            
             this.KeyPreview = true;
             this.KeyDown += (s, e) => { if (e.KeyCode == Keys.Escape) btnCancelar.PerformClick(); };
+        }
+
+        private void ConfigurarEventos()
+        {
+            txtNombreCategoria.Leave += TxtNombreCategoria_Leave;
+        }
+
+        private void TxtNombreCategoria_Leave(object sender, EventArgs e)
+        {
+            Validaciones.ConvertirAMayusculas(sender, e);
+            Validaciones.LimpiarYSanitizar(sender, e);
+
+            string valor = txtNombreCategoria.Text.Trim();
+            if (valor.Length > 0 && valor.Length < 3)
+            {
+                MessageBox.Show("El nombre de la categoría debe tener al menos 3 caracteres.",
+                                "Longitud mínima",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                txtNombreCategoria.Focus();
+            }
         }
 
         private void btnGuardar_Click(object sender, EventArgs e)
@@ -27,6 +43,19 @@ namespace sgidam
             {
                 MessageBox.Show("El nombre de la categoría es obligatorio.", "Campo requerido",
                                 MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtNombreCategoria.Focus();
+                return;
+            }
+
+            Validaciones.ConvertirAMayusculas(txtNombreCategoria, EventArgs.Empty);
+            Validaciones.LimpiarYSanitizar(txtNombreCategoria, EventArgs.Empty);
+
+            if (txtNombreCategoria.Text.Trim().Length < 3)
+            {
+                MessageBox.Show("El nombre de la categoría debe tener al menos 3 caracteres.",
+                                "Longitud mínima",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
                 txtNombreCategoria.Focus();
                 return;
             }

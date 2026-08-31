@@ -1,4 +1,6 @@
 ﻿using sgidam.Data;
+using sgidam.Helpers;
+using sgidam.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,7 +16,8 @@ namespace sgidam
     public partial class MenuPrincipal : Form
     {
         private System.Windows.Forms.Timer _timerInactividad;
-        // 5 minutos en milisegundos (300,000 ms)
+        private System.Windows.Forms.Timer _timerActualizacion;
+        // 5 minutos en milisegundos 5 * 60 * 1000 (300,000 ms)
         private const int TIEMPO_EXPIRACION_MS = 30 * 60 * 1000;
 
 
@@ -24,8 +27,32 @@ namespace sgidam
             InitializeComponent();
             this.KeyPreview = true;
             InicializarTimer();
+            TimerActualizacion();
             personalizarMenuLateral();
+
+            comboPeriodo.Items.Clear();
+            comboPeriodo.Items.Add("Últimos 7 días");
+            comboPeriodo.Items.Add("Últimos 30 días");
+            comboPeriodo.Items.Add("Últimos 90 días");
+            comboPeriodo.SelectedIndex = 1;
+            comboPeriodo.SelectedIndexChanged += comboPeriodo_SelectedIndexChanged;
+
+
+            CargarDashboard(30);
         }
+
+        private void comboPeriodo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int dias = 30;
+            switch (comboPeriodo.SelectedIndex)
+            {
+                case 0: dias = 7; break;
+                case 1: dias = 30; break;
+                case 2: dias = 90; break;
+            }
+            CargarDashboard(dias);
+        }
+
         private void InicializarTimer()
         {
             _timerInactividad = new System.Windows.Forms.Timer();
@@ -54,6 +81,133 @@ namespace sgidam
             _timerInactividad.Start();
         }
 
+        private void TimerActualizacion()
+        {
+            _timerActualizacion = new System.Windows.Forms.Timer();
+            _timerActualizacion.Interval = 60000;
+            _timerActualizacion.Tick += (s, e) =>
+            {
+                int dias = 30;
+                switch (comboPeriodo.SelectedIndex)
+                {
+                    case 0: dias = 7; break;
+                    case 1: dias = 30; break;
+                    case 2: dias = 90; break;
+                }
+                CargarDashboard(dias);
+            };
+            _timerActualizacion.Start();
+        }
+
+        private void CargarDashboard(int dias = 30)
+        {
+            try
+            {
+
+                DataTable dtResumen = DashboardHelper.GetResumenGeneral();
+                if (dtResumen != null && dtResumen.Rows.Count > 0)
+                {
+                    DataRow row = dtResumen.Rows[0];
+
+                    lblTotalProductos.Text = row["TotalProductos"]?.ToString() ?? "0";
+                    lblStockCritico.Text = row["StockCritico"]?.ToString() ?? "0";
+
+
+                    if (row["ValorInventario"] != DBNull.Value)
+                    {
+                        decimal valor = Convert.ToDecimal(row["ValorInventario"]);
+                        lblValorInventario.Text = valor.ToString();
+                    }
+                    else
+                    {
+                        lblValorInventario.Text = "$0.00";
+                    }
+                }
+
+                DataTable dtVentasHoy = DashboardHelper.GetVentasHoy();
+                if (dtVentasHoy != null && dtVentasHoy.Rows.Count > 0)
+                {
+                    DataRow row = dtVentasHoy.Rows[0];
+                    int numVentas = Convert.ToInt32(row["NumVentas"]);
+                    decimal monto = row["MontoTotal"] != DBNull.Value ? Convert.ToDecimal(row["MontoTotal"]) : 0;
+                    lblVentasHoy.Text = $"{numVentas} ventas - Total: ${monto}";
+                }
+                else
+                {
+                    lblVentasHoy.Text = "0 ventas - Total: $0.00";
+                }
+
+                DataTable dtCriticos = DashboardHelper.GetProductosStockCritico();
+                dgvStockCritico.DataSource = dtCriticos;
+                if (dgvStockCritico.Columns.Contains("codigo_barras"))
+                    dgvStockCritico.Columns["codigo_barras"].HeaderText = "Código de barras";
+                if (dgvStockCritico.Columns.Contains("nombre_producto"))
+                    dgvStockCritico.Columns["nombre_producto"].HeaderText = "Nombre del Producto";
+                if (dgvStockCritico.Columns.Contains("stock"))
+                    dgvStockCritico.Columns["stock"].HeaderText = "Stock";
+                if (dgvStockCritico.Columns.Contains("stock_minimo"))
+                    dgvStockCritico.Columns["stock_minimo"].HeaderText = "Stock Mínimo";
+                if (dgvStockCritico.Columns.Contains("Estado"))
+                    dgvStockCritico.Columns["Estado"].HeaderText = "Estado";
+                dgvStockCritico.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dgvStockCritico.AutoResizeColumns();
+                dgvStockCritico.ClearSelection();
+                dgvStockCritico.CurrentCell = null;
+
+
+                foreach (DataGridViewRow row in dgvStockCritico.Rows)
+                {
+                    if (row.Cells["Estado"].Value?.ToString() == "Crítico")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.Red;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                    else if (row.Cells["Estado"].Value?.ToString() == "Alerta")
+                    {
+                        row.DefaultCellStyle.BackColor = Color.LightYellow;
+                        row.DefaultCellStyle.ForeColor = Color.Black;
+                    }
+                }
+
+
+                DataTable dtTopProd = DashboardHelper.GetTopProductosVendidos(dias);
+                dgvTopProductos.DataSource = dtTopProd;
+                if (dgvTopProductos.Columns.Contains("nombre_producto"))
+                    dgvTopProductos.Columns["nombre_producto"].HeaderText = "Nombre del Producto";
+                if (dgvTopProductos.Columns.Contains("UnidadesVendidas"))
+                    dgvTopProductos.Columns["UnidadesVendidas"].HeaderText = "Unidades Vendidas";
+                if (dgvTopProductos.Columns.Contains("MontoTotal"))
+                    dgvTopProductos.Columns["MontoTotal"].HeaderText = "Monto Total";
+                dgvTopProductos.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dgvTopProductos.AutoResizeColumns();
+                dgvTopProductos.ClearSelection();
+                dgvTopProductos.CurrentCell = null;
+
+
+
+                DataTable dtTopCli = DashboardHelper.GetTopClientes(dias);
+                dgvTopClientes.DataSource = dtTopCli;
+                if (dgvTopClientes.Columns.Contains("nombre_cliente"))
+                    dgvTopClientes.Columns["nombre_cliente"].HeaderText = "Nombre del Cliente";
+                if (dgvTopClientes.Columns.Contains("NumCompras"))
+                    dgvTopClientes.Columns["NumCompras"].HeaderText = "Número de compras";
+                if (dgvTopClientes.Columns.Contains("TotalGastado"))
+                    dgvTopClientes.Columns["TotalGastado"].HeaderText = "Total Gastado";
+                dgvTopClientes.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+                dgvTopClientes.AutoResizeColumns();
+                dgvTopClientes.ClearSelection();
+                dgvTopClientes.CurrentCell = null;
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar el Dashboard: {ex.Message}",
+                                "Error de carga",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Error);
+            }
+        }
+
         private void TimerInactividad_Tick(object sender, EventArgs e)
         {
             _timerInactividad.Stop();
@@ -68,6 +222,7 @@ namespace sgidam
             this.Close();
         }
 
+
         private void MenuPrincipal_Load(object sender, EventArgs e)
         {
 
@@ -79,94 +234,21 @@ namespace sgidam
             string rol = Global.UsuarioSesion.rol;
 
 
-            if (rol == "Vendedor")
+            if (rol == "Vendedor" || rol == "VENDEDOR")
             {
                 btnProveedores.Visible = false;
                 btnReportes.Visible = false;
                 btnUsuarios.Visible = false;
 
             }
+
+            CargarDashboard(30);
         }
 
         private void FormMain_FormClosing(object sender, FormClosingEventArgs e)
         {
             _timerInactividad?.Stop();
             _timerInactividad?.Dispose();
-        }
-
-        private void productoToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-            using (RegistrarProducto frm = new RegistrarProducto())
-            {
-                frm.ShowDialog(this);
-
-            }
-        }
-
-        private void usuarioToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (RegistrarUsuario frm = new RegistrarUsuario())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void marcaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (RegistrarMarca frm = new RegistrarMarca())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void categoriaToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (RegistrarCategoria frm = new RegistrarCategoria())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (RegistrarProveedor frm = new RegistrarProveedor())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void listaDeProveedorToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (ListaProveedores frm = new ListaProveedores())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void btnCompra_Click(object sender, EventArgs e)
-        {
-            using (Compras frm = new Compras())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void button1_Click(object sender, EventArgs e)
-        {
-            using (Ventas frm = new Ventas())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void btnRegistrar_Click(object sender, EventArgs e)
-        {
-            using (RegistrarProducto frm = new RegistrarProducto())
-            {
-                frm.ShowDialog(this);
-
-            }
         }
 
         private void MenuPrincipal_Load_1(object sender, EventArgs e)
@@ -216,70 +298,6 @@ namespace sgidam
             {
                 subMenu.Visible = false;
             }
-        }
-
-        private void registrarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void registrarToolStripMenuItem2_Click(object sender, EventArgs e)
-        {
-            using (RegistrarUsuario frm = new RegistrarUsuario())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void registrarToolStripMenuItem1_Click(object sender, EventArgs e)
-        {
-            using (RegistrarProveedor frm = new RegistrarProveedor())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void listarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (ListaProveedores frm = new ListaProveedores())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void usuariosToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void kardexToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (Kardex frm = new Kardex())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-
-        private void eliminarToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (AdministrarUsuarios frm = new AdministrarUsuarios())
-            {
-                frm.ShowDialog(this);
-            }
-        }
-
-        private void listaDeProveedoresToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            using (var frm = new MostrarProveedores())
-            {
-                frm.ShowDialog();
-            }
-        }
-
-        private void button4_Click(object sender, EventArgs e)
-        {
-
         }
 
         private void btnProductos_Click(object sender, EventArgs e)
@@ -402,7 +420,7 @@ namespace sgidam
                 frm.ShowDialog();
             }
         }
-        
+
 
         private void btnListaFacturas_Click(object sender, EventArgs e)
         {

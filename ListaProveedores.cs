@@ -23,50 +23,31 @@ namespace sgidam
 
         private void CargarCombos()
         {
-            // Cargar proveedores
+            
             DataTable dtProveedores = ListaProveedor.ObtenerProveedores();
             cmbProveedor.DataSource = dtProveedores;
             cmbProveedor.DisplayMember = "nombre_proveedor";
             cmbProveedor.ValueMember = "id_proveedor";
             cmbProveedor.SelectedIndex = -1;
 
-            // Cargar productos
+            
             DataTable dtProductos = ListaProveedor.ObtenerProductos();
             cmbProducto.DataSource = dtProductos;
             cmbProducto.DisplayMember = "nombre_producto";
             cmbProducto.ValueMember = "id_producto";
             cmbProducto.SelectedIndex = -1;
-
-            // Cargar estatus
-            DataTable dtEstatus = ListaProveedor.ObtenerEstatus();
-            cmbEstatus.DataSource = dtEstatus;
-            cmbEstatus.DisplayMember = "tipo_status";
-            cmbEstatus.ValueMember = "id_estatus";
-            cmbEstatus.SelectedIndex = 0; // Por defecto "Activo"
         }
 
         private void ConfigurarEventos()
         {
-            // Validar precio: solo números y punto decimal
-            txtPrecio.KeyPress += SoloNumerosYDecimales;
+            
+            txtPrecio.KeyPress += Validaciones.SoloNumerosYDecimales;
+            txtPrecio.Leave += Validaciones.LimpiarYSanitizar;
 
-            // Atajo con Escape para cancelar
             this.KeyPreview = true;
             this.KeyDown += ListaProveedores_KeyDown;
         }
 
-        private void SoloNumerosYDecimales(object sender, KeyPressEventArgs e)
-        {
-            if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar) && e.KeyChar != '.')
-            {
-                e.Handled = true;
-            }
-            // Solo un punto decimal
-            if (e.KeyChar == '.' && (sender as TextBox).Text.IndexOf('.') > -1)
-            {
-                e.Handled = true;
-            }
-        }
 
         private bool ValidarCampos()
         {
@@ -124,7 +105,7 @@ namespace sgidam
                     IdProveedor = cmbProveedor.SelectedValue.ToString(),
                     IdProducto = (int)cmbProducto.SelectedValue,
                     PrecioProveedor = decimal.Parse(txtPrecio.Text),
-                    Estatus = (int)cmbEstatus.SelectedValue
+                    Estatus = 1
                 };
 
                 bool exito = ListaProveedor.Registrar(nuevaRelacion);

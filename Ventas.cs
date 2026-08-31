@@ -68,6 +68,15 @@ namespace sgidam
 
         private void ConfigurarEventos()
         {
+            txtNumDoc.KeyPress += Validaciones.SoloNumerosEnterosConCeroInicial;
+            
+            txtTelefonoCliente.KeyPress += Validaciones.SoloNumerosEnterosConCeroInicial;
+
+            txtPrecioVentaUnitario.KeyPress += Validaciones.SoloNumerosYDecimales;
+
+            
+            txtNombreCliente.Leave += (s, e) => Validaciones.ConvertirAMayusculas(s, e);
+            txtDireccionCliente.Leave += (s, e) => Validaciones.ConvertirAMayusculas(s, e);
 
             this.KeyPreview = true;
             this.KeyDown += (s, e) => { if (e.KeyCode == Keys.Escape) btnCancelar_Click(s, e); };
@@ -75,7 +84,6 @@ namespace sgidam
             _detallesTable.RowChanged += (s, e) => CalcularMontos();
             _detallesTable.RowDeleted += (s, e) => CalcularMontos();
             _detallesTable.TableCleared += (s, e) => CalcularMontos();
-
 
             cmbProductoAgregar.SelectedIndexChanged += (s, e) =>
             {
@@ -251,6 +259,13 @@ namespace sgidam
                 }
             }
 
+            if (dtpFecha.Value.Date > DateTime.Now.Date)
+            {
+                MessageBox.Show("La fecha no puede ser futura.", "Fecha inválida", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dtpFecha.Focus();
+                return;
+            }
+
             try
             {
 
@@ -342,11 +357,11 @@ namespace sgidam
             txtTelefonoCliente.ReadOnly = true;
             _clienteCargado = false;
         }
-
         private void txtNumDoc_Leave(object sender, EventArgs e)
         {
             string numDoc = txtNumDoc.Text.Trim();
 
+            
             if (!string.IsNullOrEmpty(numDoc) && !System.Text.RegularExpressions.Regex.IsMatch(numDoc, @"^\d+$"))
             {
                 MessageBox.Show("El número de documento solo debe contener dígitos.", "Formato inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -355,6 +370,8 @@ namespace sgidam
             }
 
             string tipo = cmbTipoDoc.SelectedItem?.ToString() ?? "V";
+
+            
             if (tipo == "V" && !string.IsNullOrEmpty(numDoc))
             {
                 if (!long.TryParse(numDoc, out long numero))
@@ -363,9 +380,19 @@ namespace sgidam
                     txtNumDoc.Focus();
                     return;
                 }
-                if (numero < 1000000 || numero > 50000000)
+
+                if (numero < 1000000)
                 {
-                    MessageBox.Show("Para cédula tipo 'V', el número debe estar entre 1.000.000 y 50.000.000.", "Rango inválido", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show("No se pueden ingresar cédulas tan bajas. El mínimo es 1,000,000.",
+                                    "Cédula muy corta", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    txtNumDoc.Focus();
+                    return;
+                }
+
+                if (numero > 50000000)
+                {
+                    MessageBox.Show("La cédula puede contener solo 7 dígitos o el número es muy alto. Máximo 50,000,000.",
+                                    "Cédula muy larga", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     txtNumDoc.Focus();
                     return;
                 }
@@ -378,11 +405,10 @@ namespace sgidam
                 return;
             }
 
-
+            
             DataRow cliente = VentaHelper.ObtenerClientePorId(idCompleto);
             if (cliente != null)
             {
-
                 txtNombreCliente.Text = cliente["nombre_cliente"].ToString();
                 txtDireccionCliente.Text = cliente["direccion_cliente"].ToString();
                 txtTelefonoCliente.Text = cliente["telefono_cliente"].ToString();
@@ -393,7 +419,6 @@ namespace sgidam
             }
             else
             {
-
                 LimpiarDatosCliente();
                 txtNombreCliente.ReadOnly = false;
                 txtDireccionCliente.ReadOnly = false;

@@ -36,7 +36,7 @@ namespace sgidam.Data
             return resultado;
         }
 
-        // 2. Ejecutar INSERT, UPDATE, DELETE (devuelve filas afectadas)
+        // Ejecutar INSERT, UPDATE, DELETE (devuelve filas afectadas)
         public static int EjecutarComando(string query, MySqlParameter[] parametros = null)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -50,7 +50,7 @@ namespace sgidam.Data
             }
         }
 
-        // 3. Ejecutar SELECT y devolver un solo valor (COUNT, SUM, etc.)
+        // Ejecutar SELECT y devolver un solo valor (COUNT, SUM, etc.)
         public static object EjecutarEscalar(string query, MySqlParameter[] parametros = null)
         {
             using (MySqlConnection conn = new MySqlConnection(connectionString))
@@ -64,7 +64,7 @@ namespace sgidam.Data
             }
         }
 
-        // 4. Método auxiliar para crear parámetros fácilmente
+        // Método auxiliar para crear parámetros fácilmente
         public static MySqlParameter[] CrearParametros(Dictionary<string, object> datos)
         {
             var lista = new List<MySqlParameter>();

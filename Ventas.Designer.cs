@@ -165,6 +165,7 @@
             // 
             dtpFecha.Checked = false;
             dtpFecha.CustomFormat = "";
+            dtpFecha.Format = DateTimePickerFormat.Short;
             dtpFecha.Location = new Point(501, 154);
             dtpFecha.Name = "dtpFecha";
             dtpFecha.Size = new Size(116, 23);
